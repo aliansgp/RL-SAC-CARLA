@@ -234,7 +234,7 @@ class CarEnv:
         self.sensor.listen(lambda data: self.process_img(data))
 
         self.vehicle.apply_control(carla.VehicleControl(throttle=0.0, brake=0.0))
-        time.sleep(4)
+        time.sleep(0.2)#4
 
         colsensor = self.blueprint_library.find("sensor.other.collision")
         self.colsensor = self.world.spawn_actor(colsensor, transform, attach_to=self.vehicle)
