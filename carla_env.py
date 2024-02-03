@@ -258,6 +258,26 @@ class CarEnv:
 
         #self.state_train = self.Calcular_estado(self.front_camera)
 
+        #-----------------spectator
+        spectator = self.world.get_spectator()
+        
+        self.world.tick()
+
+        world_snapshot = self.world.wait_for_tick()
+        actor_snapshot = world_snapshot.find(self.vehicle.id)
+        actor_t = actor_snapshot.get_transform()
+        actor_location_z = actor_t.location.z
+        actor_location_y = actor_t.location.y
+        actor_location_x = actor_t.location.x
+        actor_rotation_pitch = actor_t.rotation.pitch
+        actor_rotation_yaw = actor_t.rotation.yaw
+        actor_rotation_roll = actor_t.rotation.roll
+        # Set spectator at given transform (vehicle transform)
+        spectator.set_transform(carla.Transform(carla.Location(x=actor_location_x, y=actor_location_y, z=actor_location_z+70),
+                                                carla.Rotation(pitch=actor_rotation_pitch-70, yaw=actor_rotation_yaw, roll=actor_rotation_roll)))
+
+        #-------------------------------
+
         if settings.WORKING_MODE == settings.WORKING_MODE_OPTIONS[1]:
             self.state_train = self.Calcular_estado(self.front_camera)
             return self.front_camera, self.state_train
