@@ -142,6 +142,7 @@ class CarEnv:
         self.grp.setup()
         #############################
 
+        #############################
         #aux_position = random.sample(self.positions, 1)
         #self.transform = carla.Transform(carla.Location(x=26.638832, y=-20.751266, z=4.000000),
                                          #carla.Rotation(pitch=-0.171233, yaw=-44.747993, roll=-0.000488))
@@ -232,7 +233,7 @@ class CarEnv:
         self.sensor = self.world.spawn_actor(self.rgb_cam, transform, attach_to=self.vehicle)
         self.actor_list.append(self.sensor)
         self.sensor.listen(lambda data: self.process_img(data))
-
+        
         self.vehicle.apply_control(carla.VehicleControl(throttle=0.0, brake=0.0))
         time.sleep(0.2)#4
 
@@ -513,28 +514,28 @@ class CarEnv:
         location = self.vehicle.get_location()
         # print(self.angle_rw)
         progress = np.cos(self.angle_rw) - abs(np.sin(self.angle_rw)) - abs(self.trackpos_rw)
-        salida = 0  # CONDICIÓN DE SALIDA DEL PROGRAMA.
+        salida = 0  
 
         d2target = self.distance_target(self.Target, location)
-        # CONDICIÓN DE SALIDA SI HAY COLISIÓN
-        if len(self.collision_hist) != 0:  # or (len(self.crossline_hist) != 0)
+    
+        if len(self.collision_hist) != 0: 
             done = True
             salida = 1
             reward = -200
-            # print('Ha habido una colisión, distancia al objetivo: ', d2target)
+    
             self.summary['Steps'] += 1
 
-        ##CONDICIÓN DE SALIDA SI HAY SALIDA DE CARRIL
+ 
         if len(self.crossline_hist) != 0:
             done = True
             salida = 1
             reward = -200
-            # print('Ha habido una salida de carril, distancia al objetivo: ', d2target)
+          
             self.summary['Steps'] += 1
 
-        if salida == 0:  # SI NO HAY CONDICION DE SLAIDA DEL PROGRAMA
+        if salida == 0: 
 
-            # SE LE DA LA RECOMPENSA EN FUNCION DE COMO VAYA EN LA CARRETERA
+          
             if modo_recompensa == 0:
                 if kmh < 10:
                     done = False
@@ -549,17 +550,17 @@ class CarEnv:
                 reward = (kmh) * progress
                 done = False
 
-            # SI HA LLEGADO AL OBJETIVO SE CAMBIA LA RECOMPENSA Y SE SALE
+      
             if self.distance_target(self.Target, location) < 15:
                 done = True
                 reward = 100
                 self.summary['Steps'] += 1
                 self.summary['Target'] += 1
-                # print('Se ha llegado al objetivo')
+           
 
-            # SI SE HA FINALIZADO EL TEMPORIZADOR SE CAMBIA LA RECOMPENSA Y SE SALE
+
             if self.episode_start + settings.SECONDS_PER_EPISODE < time.time():
-                # print('Fin de temporizador, distancia al objetivo: ', d2target)
+         
                 done = True
                 self.summary['Steps'] += 1
                 if acum <= 50:
@@ -569,7 +570,7 @@ class CarEnv:
                 else:
                     reward = 100
 
-        self.cmd_vel = kmh / 120  # normalizo la velocidad
+        self.cmd_vel = kmh / 120 
 
         return reward, done, d2target
 
