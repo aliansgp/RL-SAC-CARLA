@@ -7,6 +7,3 @@
 ### Frame from the car camera
 <img width="390" alt="Car Frame" src="https://github.com/aliansgp/RL-SAC-CARLA/assets/38432834/f037c14e-6502-4f1f-b128-eec5a02579eb">
 
-### Workspace when training
-
-<img width="1028" alt="Workspace" src="https://github.com/aliansgp/RL-SAC-CARLA/assets/38432834/06ec343a-0230-42be-920d-c7f4fd1adb0e">
