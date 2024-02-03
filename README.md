@@ -4,6 +4,6 @@
 
 ![overall-architecture](https://github.com/CMVS-Lab/SAC-Residual-Fusion-CARLA/assets/56114938/6cc9a1e6-847f-47a7-9b24-16c07e109df3)
 
-### Frame from the car camera
+### What the car sees: 
 <img width="390" alt="Car Frame" src="https://github.com/aliansgp/RL-SAC-CARLA/assets/38432834/f037c14e-6502-4f1f-b128-eec5a02579eb">
 
