@@ -57,7 +57,7 @@ class CarEnv:
         self.position_array = []
         self.prev_next = 0
         self.waypoints_txt = []
-        self.town_name = 'Town03'
+        self.town_name = 'Town01'
 
         #self.model_waypoints = load_model(settings.PRE_CNN_PATH)
 
