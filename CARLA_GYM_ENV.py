@@ -12,16 +12,16 @@ class CARLA_G(gym.Env):
         super(CARLA_G, self).__init__()
         self.env = CarEnv()
         self.action_space = gym.spaces.Box(low=-1, high=1, shape = (2, ), dtype=np.float32)
-        self.observation_space = gym.spaces.Box(low = -np.inf, high = np.inf, shape=(16, ), dtype=np.float32)
-
+        # self.observation_space = gym.spaces.Box(low = -np.inf, high = np.inf, shape=(16, ), dtype=np.float32)
+        self.observation_space = gym.spaces.Box(low=0, high=1,shape=(3,60,160), dtype=np.float32)
     def step(self, action):
         [new_image, new_state], reward, done, info = self.env.step(action)
-        return new_state.astype(np.float32), reward, done, False, {}
+        return new_image.astype(np.float32), reward, done, False, {}
     
     def reset(self, seed = None, options = {}):
         image, state = self.env.reset()
         time.sleep(3)
-        return state.astype(np.float32), {}
+        return image.astype(np.float32), {}
     
     def render(self):
         pass
