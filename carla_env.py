@@ -42,7 +42,7 @@ class CarEnv:
     #
 
     def __init__(self):
-        self.client = carla.Client("localhost", 2000)
+        self.client = carla.Client('127.0.0.1', 2000,0)
         self.client.set_timeout(8.0)
         self.world = self.client.get_world()
         self.blueprint_library = self.world.get_blueprint_library()
